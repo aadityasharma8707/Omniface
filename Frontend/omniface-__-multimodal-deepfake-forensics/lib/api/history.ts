@@ -112,6 +112,11 @@ export const historyService = {
     }
   },
 
+  // Alias for save
+  addRecord: (result: AnalysisResult): void => {
+    historyService.save(result);
+  },
+
   // Delete single record
   deleteRecord: (id: string): void => {
     if (typeof window === 'undefined') return;

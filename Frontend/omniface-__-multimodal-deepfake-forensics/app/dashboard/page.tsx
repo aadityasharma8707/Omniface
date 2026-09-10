@@ -192,7 +192,7 @@ export default function DashboardAnalyzePage() {
       setProgressPercent(100);
 
       // Save to historical audit records
-      historyService.addRecord(result);
+      historyService.save(result);
 
       setTimeout(() => {
         setIsAnalyzing(false);
