@@ -10,7 +10,6 @@ import {
   FileText, 
   Settings, 
   LogOut, 
-  User, 
   Menu, 
   X, 
   Activity,
@@ -18,7 +17,7 @@ import {
   ChevronRight,
   ExternalLink
 } from 'lucide-react';
-import { authService, UserProfile } from '@/lib/api/auth';
+import { authService, User } from '@/lib/api/auth';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -27,7 +26,7 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 

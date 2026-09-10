@@ -9,6 +9,8 @@ export interface User {
   createdAt: string;
 }
 
+export type UserProfile = User;
+
 export interface AuthResponse {
   success: boolean;
   token?: string;
