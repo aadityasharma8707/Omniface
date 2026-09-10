@@ -720,9 +720,9 @@ export default function DashboardAnalyzePage() {
             backgroundColor: 'rgba(13, 17, 26, 0.9)',
             backdropFilter: 'blur(20px)',
             border: `1px solid ${
-              analysisResult.classification === 'LIKELY DEEPFAKE' 
+              analysisResult.classification === 'DEEPFAKE DETECTED' 
                 ? 'rgba(239, 68, 68, 0.4)' 
-                : analysisResult.classification === 'AUTHENTIC'
+                : analysisResult.classification === 'AUTHENTIC MEDIA'
                 ? 'rgba(16, 185, 129, 0.4)'
                 : 'rgba(245, 158, 11, 0.4)'
             }`,
@@ -750,9 +750,9 @@ export default function DashboardAnalyzePage() {
                     fontSize: 'clamp(24px, 3vw, 32px)',
                     fontWeight: 800,
                     letterSpacing: '0.02em',
-                    color: analysisResult.classification === 'LIKELY DEEPFAKE' 
+                    color: analysisResult.classification === 'DEEPFAKE DETECTED' 
                       ? '#EF4444' 
-                      : analysisResult.classification === 'AUTHENTIC' 
+                      : analysisResult.classification === 'AUTHENTIC MEDIA' 
                       ? '#10B981' 
                       : '#F59E0B',
                   }}>
@@ -793,20 +793,20 @@ export default function DashboardAnalyzePage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: analysisResult.classification === 'LIKELY DEEPFAKE' 
+                  backgroundColor: analysisResult.classification === 'DEEPFAKE DETECTED' 
                     ? 'rgba(239, 68, 68, 0.15)' 
-                    : analysisResult.classification === 'AUTHENTIC' 
+                    : analysisResult.classification === 'AUTHENTIC MEDIA' 
                     ? 'rgba(16, 185, 129, 0.15)' 
                     : 'rgba(245, 158, 11, 0.15)',
-                  color: analysisResult.classification === 'LIKELY DEEPFAKE' 
+                  color: analysisResult.classification === 'DEEPFAKE DETECTED' 
                     ? '#EF4444' 
-                    : analysisResult.classification === 'AUTHENTIC' 
+                    : analysisResult.classification === 'AUTHENTIC MEDIA' 
                     ? '#10B981' 
                     : '#F59E0B',
                 }}>
-                  {analysisResult.classification === 'LIKELY DEEPFAKE' && <AlertTriangle size={24} />}
-                  {analysisResult.classification === 'AUTHENTIC' && <ShieldCheck size={24} />}
-                  {analysisResult.classification === 'SUSPICIOUS' && <Info size={24} />}
+                  {analysisResult.classification === 'DEEPFAKE DETECTED' && <AlertTriangle size={24} />}
+                  {analysisResult.classification === 'AUTHENTIC MEDIA' && <ShieldCheck size={24} />}
+                  {analysisResult.classification === 'SUSPICIOUS MANIPULATION' && <Info size={24} />}
                 </div>
               </div>
             </div>
@@ -824,7 +824,7 @@ export default function DashboardAnalyzePage() {
               <div>
                 <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: 'rgba(255, 255, 255, 0.45)' }}>FILE NAME</div>
                 <div style={{ fontFamily: 'var(--f-sans)', fontSize: '13px', fontWeight: 600, color: '#FFFFFF', marginTop: '2px', wordBreak: 'break-all' }}>
-                  {analysisResult.filename}
+                  {analysisResult.fileName}
                 </div>
               </div>
               <div>
@@ -891,17 +891,17 @@ export default function DashboardAnalyzePage() {
                       }}
                     >
                       <span style={{ fontFamily: 'var(--f-sans)', fontSize: '13px', color: '#FFFFFF' }}>
-                        {ind.label}
+                        {ind.name}
                       </span>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span style={{ fontFamily: 'var(--f-mono)', fontSize: '11px', color: '#00E5FF' }}>
-                          {ind.value}
+                          {ind.score}%
                         </span>
                         <span style={{
                           width: '6px',
                           height: '6px',
                           borderRadius: '50%',
-                          backgroundColor: ind.status === 'danger' ? '#EF4444' : ind.status === 'warning' ? '#F59E0B' : '#10B981',
+                          backgroundColor: ind.status === 'anomalous' ? '#EF4444' : ind.status === 'suspicious' ? '#F59E0B' : '#10B981',
                         }} />
                       </div>
                     </div>
