@@ -16,14 +16,13 @@ export default function StandaloneLoginPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
 
-  // Prefetch dashboard route and redirect if already logged in
+  // Redirect if already logged in
   useEffect(() => {
-    router.prefetch('/dashboard');
     const user = authService.getCurrentUser();
     if (user) {
-      router.push('/dashboard');
+      window.location.href = '/dashboard';
     }
-  }, [router]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +44,9 @@ export default function StandaloneLoginPage() {
     if (res.needsVerification) {
       setUnverifiedEmail(res.email || email.trim());
     } else if (res.success) {
-      router.push('/dashboard');
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 50);
     } else {
       setErrorMessage(res.error || 'Invalid credentials.');
     }
@@ -58,7 +59,9 @@ export default function StandaloneLoginPage() {
     setIsLoading(false);
 
     if (res.success) {
-      router.push('/dashboard');
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 50);
     } else {
       setErrorMessage(res.error || 'Google sign-in failed. Please try again.');
     }

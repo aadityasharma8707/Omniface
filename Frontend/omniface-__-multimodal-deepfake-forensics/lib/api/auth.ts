@@ -339,6 +339,19 @@ export const authService = {
   },
 
   /**
+   * Asynchronously wait for Firebase Auth initial state to be restored from persistence.
+   */
+  authStateReady: async (): Promise<void> => {
+    if (auth && typeof (auth as any).authStateReady === 'function') {
+      try {
+        await (auth as any).authStateReady();
+      } catch {
+        // ignore
+      }
+    }
+  },
+
+  /**
    * Subscribe to Firebase Auth state changes.
    */
   onAuthStateChange: (callback: (user: User | null) => void): (() => void) => {

@@ -31,11 +31,6 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
 
-  // Prefetch dashboard route
-  useEffect(() => {
-    router.prefetch('/dashboard');
-  }, [router]);
-
   // Handle Login Submit
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +52,9 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
     if (res.needsVerification) {
       setUnverifiedEmail(res.email || loginEmail.trim());
     } else if (res.success) {
-      router.push('/dashboard');
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 50);
     } else {
       setErrorMessage(res.error || 'Authentication failed. Please verify credentials.');
     }
@@ -96,7 +93,9 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
     if (res.needsVerification) {
       setUnverifiedEmail(res.email || regEmail.trim());
     } else if (res.success) {
-      router.push('/dashboard');
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 50);
     } else {
       setErrorMessage(res.error || 'Registration failed. Please try again.');
     }
@@ -110,7 +109,9 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
     setIsLoading(false);
 
     if (res.success) {
-      router.push('/dashboard');
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 50);
     } else {
       setErrorMessage(res.error || 'Google sign-in failed. Please try again.');
     }

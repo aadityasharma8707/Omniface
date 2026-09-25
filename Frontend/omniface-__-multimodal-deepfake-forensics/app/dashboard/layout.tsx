@@ -61,31 +61,67 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   // Authenticate user session with Firebase Auth lifecycle listener
   useEffect(() => {
-    // Initial check from local session cache for instant hydration
+    let isMounted = true;
+
+    // Instant hydration from local storage session cache
     const initialUser = authService.getCurrentUser();
     if (initialUser) {
       setUser(initialUser);
       setIsLoadingAuth(false);
     }
 
+    const checkInitialAuth = async () => {
+      await authService.authStateReady();
+      if (!isMounted) return;
+
+      const currentUser = authService.getCurrentUser();
+      const hasCookie = typeof document !== 'undefined' && document.cookie.includes('omniface_session');
+      const hasToken = typeof window !== 'undefined' && !!localStorage.getItem('omniface_auth_token');
+
+      if (currentUser) {
+        setUser(currentUser);
+        setIsLoadingAuth(false);
+      } else if (!hasCookie && !hasToken) {
+        // Neither Firebase, cookie, nor token exists — genuine unauthenticated visit
+        setUser(null);
+        setIsLoadingAuth(false);
+        window.location.href = '/';
+      } else {
+        // Cookie or token exists, allow session to remain hydrated
+        setIsLoadingAuth(false);
+      }
+    };
+
+    checkInitialAuth();
+
     // Subscribe to real-time Firebase Auth state changes
     const unsubscribe = authService.onAuthStateChange((authUser) => {
+      if (!isMounted) return;
       if (authUser) {
         setUser(authUser);
         setIsLoadingAuth(false);
       } else {
-        // Only redirect if local cache also confirms no user session
+        // Only redirect if both local cache, session cookie, and token confirm no active session
         const cachedUser = authService.getCurrentUser();
-        if (!cachedUser) {
+        const hasCookie = typeof document !== 'undefined' && document.cookie.includes('omniface_session');
+        const hasToken = typeof window !== 'undefined' && !!localStorage.getItem('omniface_auth_token');
+
+        if (!cachedUser && !hasCookie && !hasToken) {
           setUser(null);
-          router.replace('/');
+          setIsLoadingAuth(false);
+          window.location.href = '/';
+        } else if (cachedUser) {
+          setUser(cachedUser);
+          setIsLoadingAuth(false);
         }
-        setIsLoadingAuth(false);
       }
     });
 
-    return () => unsubscribe();
-  }, [router]);
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, []);
 
   // Warm up backend and keep connection alive while dashboard is active
   useEffect(() => {

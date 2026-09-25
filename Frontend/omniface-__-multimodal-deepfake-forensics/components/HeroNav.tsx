@@ -1,11 +1,23 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { authService } from '@/lib/api/auth';
 
 interface HeroNavProps {
   onScrollTo?: (id: string) => void;
 }
 
 export default function HeroNav({ onScrollTo }: HeroNavProps) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(!!authService.getCurrentUser());
+    const unsub = authService.onAuthStateChange((user) => {
+      setIsLoggedIn(!!user);
+    });
+    return () => unsub();
+  }, []);
+
   const handleScroll = (id: string) => {
     if (onScrollTo) {
       onScrollTo(id);
@@ -140,43 +152,82 @@ export default function HeroNav({ onScrollTo }: HeroNavProps) {
 
       {/* Action Button */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-        <button
-          type="button"
-          id="hero-auth-direct-btn"
-          onClick={() => handleScroll('auth-section')}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px',
-            background: '#FFFFFF',
-            color: '#0A0A0A',
-            border: '1px solid #0A0A0A',
-            borderRadius: '100px',
-            padding: '6px clamp(10px, 1.8vw, 14px)',
-            fontFamily: 'var(--f-display)',
-            fontSize: '11px',
-            fontWeight: 600,
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-            minHeight: '36px',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#F0F0F0';
-            e.currentTarget.style.borderColor = '#000000';
-            e.currentTarget.style.color = '#000000';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#FFFFFF';
-            e.currentTarget.style.borderColor = '#0A0A0A';
-            e.currentTarget.style.color = '#0A0A0A';
-          }}
-        >
-          <span>Log In</span>
-        </button>
-
+        {isLoggedIn ? (
+          <button
+            type="button"
+            id="hero-auth-direct-btn"
+            onClick={() => { window.location.href = '/dashboard'; }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: '#00E5FF',
+              color: '#06080D',
+              border: '1px solid #00E5FF',
+              borderRadius: '100px',
+              padding: '6px clamp(10px, 1.8vw, 14px)',
+              fontFamily: 'var(--f-display)',
+              fontSize: '11px',
+              fontWeight: 700,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 0 16px rgba(0, 229, 255, 0.4)',
+              minHeight: '36px',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#FFFFFF';
+              e.currentTarget.style.borderColor = '#FFFFFF';
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 229, 255, 0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#00E5FF';
+              e.currentTarget.style.borderColor = '#00E5FF';
+              e.currentTarget.style.boxShadow = '0 0 16px rgba(0, 229, 255, 0.4)';
+            }}
+          >
+            <span>Dashboard</span>
+            <span style={{ fontSize: '12px' }}>→</span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            id="hero-auth-direct-btn"
+            onClick={() => handleScroll('auth-section')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: '#FFFFFF',
+              color: '#0A0A0A',
+              border: '1px solid #0A0A0A',
+              borderRadius: '100px',
+              padding: '6px clamp(10px, 1.8vw, 14px)',
+              fontFamily: 'var(--f-display)',
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+              minHeight: '36px',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#F0F0F0';
+              e.currentTarget.style.borderColor = '#000000';
+              e.currentTarget.style.color = '#000000';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#FFFFFF';
+              e.currentTarget.style.borderColor = '#0A0A0A';
+              e.currentTarget.style.color = '#0A0A0A';
+            }}
+          >
+            <span>Log In</span>
+          </button>
+        )}
       </div>
     </nav>
   );

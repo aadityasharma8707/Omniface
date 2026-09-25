@@ -20,14 +20,13 @@ export default function StandaloneRegisterPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [unverifiedEmail, setUnverifiedEmail] = useState<string | null>(null);
 
-  // Prefetch dashboard route and redirect if already logged in
+  // Redirect if already logged in
   useEffect(() => {
-    router.prefetch('/dashboard');
     const user = authService.getCurrentUser();
     if (user) {
       window.location.href = '/dashboard';
     }
-  }, [router]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +60,9 @@ export default function StandaloneRegisterPage() {
     if (res.needsVerification) {
       setUnverifiedEmail(res.email || email.trim());
     } else if (res.success) {
-      window.location.href = '/dashboard';
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 50);
     } else {
       setErrorMessage(res.error || 'Failed to register account.');
     }
@@ -74,7 +75,9 @@ export default function StandaloneRegisterPage() {
     setIsLoading(false);
 
     if (res.success) {
-      window.location.href = '/dashboard';
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 50);
     } else {
       setErrorMessage(res.error || 'Google sign-in failed. Please try again.');
     }

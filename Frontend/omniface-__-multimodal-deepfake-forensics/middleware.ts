@@ -15,13 +15,17 @@ export function middleware(request: NextRequest): NextResponse {
 
   if (isProtected && !isAuthenticated) {
     const landingUrl = new URL('/', request.url);
-    return NextResponse.redirect(landingUrl);
+    const response = NextResponse.redirect(landingUrl);
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+    return response;
   }
 
   const isAuthRoute = AUTH_ROUTES.some((route) => pathname === route);
 
   if (isAuthRoute && isAuthenticated) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    const response = NextResponse.redirect(new URL('/dashboard', request.url));
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+    return response;
   }
 
   return NextResponse.next();
