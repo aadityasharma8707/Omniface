@@ -1,0 +1,6 @@
+{
+  "name": "OmniFace // Multimodal Deepfake Forensics",
+  "description": "OmniFace multimodal deepfake recognition and media integrity software featuring interactive live forensics for images, video, and audio, research-grade benchmarks, and explainable AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
