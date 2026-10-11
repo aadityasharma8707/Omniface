@@ -53,7 +53,7 @@ OmniFace Full System Architecture
 | **Language** | TypeScript (Strict Typing) | Robust Type Safety across API contracts and Component Props |
 | **Animation Engine** | GSAP 3.x, GSAP ScrollTrigger | Scroll-driven timeline scrubbing, Stage Pinning, Staggered reveals |
 | **Canvas Rendering** | HTML5 2D Canvas (GPU-Accelerated) | 60/120 FPS high-precision 240-frame robotic head sequence |
-| **Styling & Theme** | Vanilla CSS Tokens + TailwindCSS | Glassmorphic HUD, Cyber neon gradients, Orbitron / Inter fonts |
+| **Styling & Theme** | Dynamic Multi-Theme Engine (`lib/theme/ThemeContext.tsx`) + TailwindCSS | 4 Dynamic Themes: Cyber Dark (Default), Lab Light, Cyber Yellow, Tactical Red |
 | **Iconography** | Lucide React | High-contrast cybersecurity, biometric, and telemetry icons |
 | **State & Storage** | LocalStorage + Reactive Event Listeners | Client-side persistent scan history, user profile, and session tokens |
 | **Backend Integration** | FastAPI / Python (REST API) | Python AI neural network inference (`/api/v1/analyze`) with automatic fallback |
@@ -149,10 +149,9 @@ Dashboard Architecture
 │       ├── View Digital HTML Certificate
 │       └── Export JSON Telemetry
 │
-└── [User & API Settings] app/dashboard/settings/page.tsx
-    ├── API Key Generation & Management (`omni_live_...`)
-    ├── Profile Settings (Name, Email, Organization)
-    └── Security & Notifications Toggle
+└── [User Settings & Preferences] app/dashboard/settings/page.tsx
+    ├── Profile Settings (Name, Email, Password)
+    └── Security & Detection Preferences Toggle
 ```
 
 ---

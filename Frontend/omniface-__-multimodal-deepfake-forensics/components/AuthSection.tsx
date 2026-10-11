@@ -139,7 +139,7 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
   };
 
   return (
-    <footer className="page-section" id="auth-section" style={{ position: 'relative', zIndex: 10, paddingBottom: '72px' }}>
+    <section className="page-section" id="auth-section" style={{ position: 'relative', zIndex: 10, paddingBottom: '72px' }}>
       {/* Primary Auth Container */}
       <div
         className="forensic-card"
@@ -277,11 +277,11 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
         {authMode === 'login' ? (
           <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.7)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.85)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
                 Email Address
               </label>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                <Mail size={16} color="rgba(255, 255, 255, 0.4)" style={{ position: 'absolute', left: '14px' }} />
+                <Mail size={16} color="#94A3B8" style={{ position: 'absolute', left: '14px' }} />
                 <input
                   type="email"
                   placeholder="analyst@agency.gov"
@@ -307,7 +307,7 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
 
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                <label style={{ fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.7)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                <label style={{ fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.85)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                   Password
                 </label>
                 <button
@@ -327,7 +327,7 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
                 </button>
               </div>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                <Lock size={16} color="rgba(255, 255, 255, 0.4)" style={{ position: 'absolute', left: '14px' }} />
+                <Lock size={16} color="#94A3B8" style={{ position: 'absolute', left: '14px' }} />
                 <input
                   type="password"
                   placeholder="••••••••••••"
@@ -382,7 +382,7 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
             {/* Divider */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '14px 0 10px 0' }}>
               <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
-              <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>OR</span>
+              <span style={{ fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>OR</span>
               <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
             </div>
 
@@ -457,11 +457,11 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
           /* REGISTRATION FORM */
           <form onSubmit={handleRegisterSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.7)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.85)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
                 Full Name
               </label>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                <UserIcon size={16} color="rgba(255, 255, 255, 0.4)" style={{ position: 'absolute', left: '14px' }} />
+                <UserIcon size={16} color="#94A3B8" style={{ position: 'absolute', left: '14px' }} />
                 <input
                   type="text"
                   placeholder="Sarah Vance"
@@ -486,11 +486,11 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.7)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.85)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
                 Email Address
               </label>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                <Mail size={16} color="rgba(255, 255, 255, 0.4)" style={{ position: 'absolute', left: '14px' }} />
+                <Mail size={16} color="#94A3B8" style={{ position: 'absolute', left: '14px' }} />
                 <input
                   type="email"
                   placeholder="sarah.vance@forensics.org"
@@ -516,11 +516,11 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.7)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.85)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
                   Password
                 </label>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <Lock size={16} color="rgba(255, 255, 255, 0.4)" style={{ position: 'absolute', left: '14px' }} />
+                  <Lock size={16} color="#94A3B8" style={{ position: 'absolute', left: '14px' }} />
                   <input
                     type="password"
                     placeholder="••••••••••••"
@@ -545,11 +545,11 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.7)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
+                <label style={{ display: 'block', fontSize: '11.5px', fontFamily: 'var(--f-display)', fontWeight: 700, color: 'rgba(255, 255, 255, 0.85)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: '6px' }}>
                   Confirm Password
                 </label>
                 <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                  <Lock size={16} color="rgba(255, 255, 255, 0.4)" style={{ position: 'absolute', left: '14px' }} />
+                  <Lock size={16} color="#94A3B8" style={{ position: 'absolute', left: '14px' }} />
                   <input
                     type="password"
                     placeholder="••••••••••••"
@@ -618,7 +618,7 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
             {/* Divider */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: '14px 0 10px 0' }}>
               <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
-              <span style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>OR</span>
+              <span style={{ fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>OR</span>
               <div style={{ flex: 1, height: '1px', backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
             </div>
 
@@ -672,32 +672,6 @@ export default function AuthSection({ onScrollTo }: AuthSectionProps) {
         </>
       )}
     </div>
-
-      {/* Subtle Footer Bar */}
-      <div
-        style={{
-          maxWidth: '1240px',
-          margin: '32px auto 0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '16px',
-          paddingTop: '16px',
-          fontSize: '12px',
-          color: 'rgba(255, 255, 255, 0.5)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontFamily: 'var(--f-display)', color: '#FFFFFF', fontWeight: 700 }}>OMNIFACE // 2026</span>
-          <span>Multimodal Deepfake Media Verification Engine</span>
-        </div>
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <span>Privacy Policy</span>
-          <span>Security Whitepaper</span>
-          <span>API Specification</span>
-        </div>
-      </div>
-    </footer>
+    </section>
   );
 }

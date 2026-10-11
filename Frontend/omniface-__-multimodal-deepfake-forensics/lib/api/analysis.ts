@@ -28,6 +28,7 @@ export interface AnalysisResult {
 }
 
 import { authService } from './auth';
+import { logForensicEvent } from '@/lib/firebase';
 
 const BACKEND_API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000').replace(/\/+$/, '');
 
@@ -51,6 +52,10 @@ export const analysisService = {
   ): Promise<AnalysisResult> => {
     // Stage 1: File Ingestion
     onProgress?.('INGESTING & NORMALIZING MEDIA', 15);
+    logForensicEvent('analysis_started', {
+      modality: mediaType,
+      file_size_bytes: file.size,
+    });
 
     const previewUrl = URL.createObjectURL(file);
     const fileSizeFormatted = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
@@ -244,6 +249,13 @@ export const analysisService = {
               : 'Audio-visual sync measurements within natural 4ms biological tolerance.',
           },
         ];
+
+    logForensicEvent('analysis_completed', {
+      modality: mediaType,
+      is_synthetic: isSynthetic,
+      confidence,
+      classification,
+    });
 
     return {
       id: data.report_id || data.job_id || `ana_${Date.now()}`,

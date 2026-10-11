@@ -1,12 +1,16 @@
 'use client';
 
 import { useCallback, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import HeroProblemSequence from '@/components/HeroProblemSequence';
 import VerticalSectionsFlow from '@/components/VerticalSectionsFlow';
 import ScrollEngine from '@/components/ScrollEngine';
-import GlobalRoboticFace from '@/components/GlobalRoboticFace';
 import HeroNav from '@/components/HeroNav';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+const GlobalRoboticFace = dynamic(() => import('@/components/GlobalRoboticFace'), {
+  ssr: false,
+});
 
 export default function LandingPage() {
   // Smooth scroll helper to navigate between sections

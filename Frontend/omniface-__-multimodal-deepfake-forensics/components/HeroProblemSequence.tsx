@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { ChevronDown, Layers, Maximize2 } from 'lucide-react';
+import { ChevronDown, Layers, Maximize2, ShieldCheck, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProblemSection from '@/components/ProblemSection';
@@ -340,7 +340,7 @@ export default function HeroProblemSequence({ onScrollTo }: HeroProblemSequenceP
               className="hero-base-img"
               id="hero-base-img"
               style={{
-                backgroundImage: `url('${isSwapped ? '/hero-reveal.png' : '/hero-base.png'}')`,
+                backgroundImage: `url('${isSwapped ? '/hero-reveal.webp' : '/hero-base.webp'}')`,
               }}
               aria-hidden="true"
             />
@@ -350,7 +350,7 @@ export default function HeroProblemSequence({ onScrollTo }: HeroProblemSequenceP
               className="hero-reveal-img"
               id="reveal-img"
               style={{
-                backgroundImage: `url('${isSwapped ? '/hero-base.png' : '/hero-reveal.png'}')`,
+                backgroundImage: `url('${isSwapped ? '/hero-base.webp' : '/hero-reveal.webp'}')`,
               }}
               aria-hidden="true"
             />
@@ -367,8 +367,102 @@ export default function HeroProblemSequence({ onScrollTo }: HeroProblemSequenceP
                     Automated multimodal media verification engine. Research-grade synthetic manipulation, physiological rPPG pulse analysis, and boundary tampering detection in real time.
                   </p>
 
+                  {/* Visual CTA Buttons (Primary Action Cyan Glow vs Secondary Action Glass Outline) */}
+                  <div
+                    className="hero-actions-row fade-up-reveal"
+                    data-delay="0.55"
+                    id="hero-actions-row"
+                    style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '12px',
+                      alignItems: 'center',
+                      marginTop: '18px',
+                      marginBottom: '14px',
+                    }}
+                  >
+                    <button
+                      type="button"
+                      id="hero-primary-cta"
+                      onClick={() => onScrollTo('live-demo-section')}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: '#00E5FF',
+                        color: '#06080D',
+                        border: '1px solid #00E5FF',
+                        borderRadius: '100px',
+                        padding: '10px 22px',
+                        fontFamily: 'var(--f-display)',
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase',
+                        cursor: 'pointer',
+                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                        boxShadow: '0 0 24px rgba(0, 229, 255, 0.55), 0 4px 14px rgba(0, 0, 0, 0.4)',
+                        minHeight: '44px',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#FFFFFF';
+                        e.currentTarget.style.borderColor = '#FFFFFF';
+                        e.currentTarget.style.boxShadow = '0 0 32px rgba(0, 229, 255, 0.85)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = '#00E5FF';
+                        e.currentTarget.style.borderColor = '#00E5FF';
+                        e.currentTarget.style.boxShadow = '0 0 24px rgba(0, 229, 255, 0.55), 0 4px 14px rgba(0, 0, 0, 0.4)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      <ShieldCheck size={16} />
+                      <span>Start Forensic Analysis</span>
+                      <ArrowRight size={14} />
+                    </button>
+
+                    <button
+                      type="button"
+                      id="hero-secondary-cta"
+                      onClick={() => onScrollTo('how-it-works-section')}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                        color: '#FFFFFF',
+                        border: '1px solid rgba(255, 255, 255, 0.22)',
+                        borderRadius: '100px',
+                        padding: '10px 20px',
+                        fontFamily: 'var(--f-display)',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
+                        cursor: 'pointer',
+                        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                        minHeight: '44px',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.22)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                      }}
+                    >
+                      <span>Explore Pipeline</span>
+                    </button>
+                  </div>
+
                   {/* Forensic Layer & Lens Radius Controls */}
-                  <div className="icon-row fade-up-reveal" data-delay="0.6" id="hero-controls-row">
+                  <div className="icon-row fade-up-reveal" data-delay="0.65" id="hero-controls-row">
                     <button
                       className="icon-btn"
                       type="button"
@@ -395,7 +489,50 @@ export default function HeroProblemSequence({ onScrollTo }: HeroProblemSequenceP
 
               </div>
 
+            </div>
 
+            {/* Sticky Primary CTA for Mobile Viewports (< 768px) */}
+            <div
+              id="mobile-sticky-cta-bar"
+              className="flex md:hidden"
+              style={{
+                position: 'fixed',
+                bottom: '12px',
+                left: '14px',
+                right: '14px',
+                zIndex: 89,
+                pointerEvents: 'auto',
+              }}
+            >
+              <button
+                type="button"
+                id="mobile-sticky-primary-btn"
+                onClick={() => onScrollTo('live-demo-section')}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  background: '#00E5FF',
+                  color: '#06080D',
+                  border: '1px solid #00E5FF',
+                  borderRadius: '14px',
+                  padding: '12px 18px',
+                  fontFamily: 'var(--f-display)',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 24px rgba(0, 229, 255, 0.6), 0 8px 32px rgba(0, 0, 0, 0.8)',
+                  minHeight: '48px',
+                }}
+              >
+                <ShieldCheck size={18} />
+                <span>Start Forensic Analysis</span>
+                <ArrowRight size={15} />
+              </button>
             </div>
 
             {/* Bottom Scroll Prompt */}

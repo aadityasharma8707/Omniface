@@ -351,12 +351,12 @@ export default function HistoryPage() {
                 borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
                 backgroundColor: 'rgba(255, 255, 255, 0.02)',
               }}>
-                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase' }}>File</th>
-                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase' }}>Type</th>
-                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase' }}>Result</th>
-                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase' }}>Confidence</th>
-                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase' }}>Timestamp</th>
-                <th style={{ padding: '14px 20px', textAlign: 'right', fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.45)', textTransform: 'uppercase' }}>Actions</th>
+                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase' }}>File</th>
+                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase' }}>Type</th>
+                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase' }}>Result</th>
+                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase' }}>Confidence</th>
+                <th style={{ padding: '14px 20px', fontFamily: 'var(--f-mono)', fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase' }}>Timestamp</th>
+                <th style={{ padding: '14px 20px', textAlign: 'right', fontFamily: 'var(--f-mono)', fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase' }}>Actions</th>
               </tr>
             </thead>
             <tbody>

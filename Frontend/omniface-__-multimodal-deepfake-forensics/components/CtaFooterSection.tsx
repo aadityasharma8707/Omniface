@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { ShieldCheck, Copy, Check, ArrowUp, Terminal } from 'lucide-react';
 
 interface CtaFooterProps {
@@ -238,14 +239,40 @@ print(f"Audit Hash: {report.sha256}")`;
           flexWrap: 'wrap',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: '16px',
+          gap: '20px',
           fontSize: '12px',
-          color: 'rgba(255, 255, 255, 0.5)',
+          color: '#94A3B8',
         }}
       >
         <div>
           © 2026 OmniFace Intelligence Systems. Research-Grade Multimodal Forensics.
         </div>
+
+        <nav aria-label="Footer navigation">
+          <ul className="flex flex-wrap gap-4 text-sm">
+            <li>
+              <Link href="/privacy" className="text-slate-400 hover:text-cyan-400">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className="text-slate-400 hover:text-cyan-400">
+                Terms of Service
+              </Link>
+            </li>
+            <li>
+              <Link href="/dashboard" className="text-slate-400 hover:text-cyan-400">
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link href="/#trust-tech-section" className="text-slate-400 hover:text-cyan-400">
+                Documentation
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <span>SIGLIP2 // VIT</span>
           <span>•</span>

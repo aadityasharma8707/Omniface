@@ -8,13 +8,19 @@ import {
   Lock, 
   Bell, 
   Moon, 
+  Sun,
+  Zap,
+  AlertTriangle,
+  Palette,
+  Check,
   ShieldCheck, 
   LogOut, 
   CheckCircle2, 
-  Key,
+  Sliders,
   Cpu
 } from 'lucide-react';
 import { authService, UserProfile } from '@/lib/api/auth';
+import { useTheme, ThemeMode, THEMES } from '@/lib/theme/ThemeContext';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -25,9 +31,8 @@ export default function SettingsPage() {
   const [email, setEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const { theme, setTheme } = useTheme();
   const [notifications, setNotifications] = useState(true);
-  const [darkTheme, setDarkTheme] = useState(true);
-  const [apiKey, setApiKey] = useState('omni_live_948f102ba9842c98e1a');
   
   const [savedSuccess, setSavedSuccess] = useState(false);
 
@@ -76,7 +81,7 @@ export default function SettingsPage() {
           fontSize: '14px',
           color: 'rgba(255, 255, 255, 0.65)',
         }}>
-          Manage your forensic investigator credentials, API access keys, and detection preferences.
+          Manage your forensic investigator credentials and detection preferences.
         </p>
       </div>
 
@@ -250,7 +255,7 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      {/* 3. API Keys & Preferences */}
+      {/* 3. Detection & Display Preferences */}
       <div style={{
         backgroundColor: 'rgba(13, 17, 26, 0.85)',
         backdropFilter: 'blur(20px)',
@@ -262,61 +267,206 @@ export default function SettingsPage() {
         gap: '20px',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', paddingBottom: '14px' }}>
-          <Key size={18} color="#00E5FF" />
+          <Sliders size={18} color="#00E5FF" />
           <h2 style={{ fontFamily: 'var(--f-display)', fontSize: '16px', fontWeight: 700, color: '#FFFFFF' }}>
-            API Access &amp; Detection Preferences
+            Detection &amp; Display Preferences
           </h2>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+          {/* Theme Section Header & Lever */}
           <div>
-            <label style={{ display: 'block', fontFamily: 'var(--f-display)', fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)', marginBottom: '6px' }}>
-              Secret API Key
-            </label>
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-              <input
-                type="text"
-                readOnly
-                value={apiKey}
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '12px', marginBottom: '14px' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', fontWeight: 700, color: '#FFFFFF' }}>
+                  <Palette size={16} color="var(--cyan, #00E5FF)" />
+                  <span>System Color Themes</span>
+                </div>
+                <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)', marginTop: '2px' }}>
+                  Select your forensic inspection environment: Dark (Default), Light, Yellow, or Red.
+                </div>
+              </div>
+
+              {/* Lever / Segmented Control */}
+              <div 
+                role="radiogroup" 
+                aria-label="Theme Lever Selector"
                 style={{
-                  width: '100%',
-                  flex: '1 1 200px',
-                  minWidth: 0,
-                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '8px',
-                  padding: '10px 14px',
-                  color: '#00E5FF',
-                  fontFamily: 'var(--f-mono)',
-                  fontSize: '12px',
-                  outline: 'none',
-                }}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  navigator.clipboard.writeText(apiKey);
-                  alert('API Key copied to clipboard!');
-                }}
-                style={{
-                  padding: '10px 16px',
-                  borderRadius: '8px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  backgroundColor: 'rgba(0, 0, 0, 0.6)',
                   border: '1px solid rgba(255, 255, 255, 0.12)',
-                  color: '#FFFFFF',
-                  fontFamily: 'var(--f-display)',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
+                  borderRadius: '100px',
+                  padding: '4px',
+                  gap: '4px',
+                  position: 'relative',
                 }}
               >
-                Copy Key
-              </button>
+                {(['dark', 'light', 'yellow', 'red'] as ThemeMode[]).map((t) => {
+                  const isActive = theme === t;
+                  const themeData = THEMES[t];
+                  return (
+                    <button
+                      key={t}
+                      type="button"
+                      id={`theme-lever-btn-${t}`}
+                      onClick={() => setTheme(t)}
+                      aria-checked={isActive}
+                      role="radio"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '6px 14px',
+                        borderRadius: '100px',
+                        border: isActive ? `1px solid ${themeData.accentColor}` : '1px solid transparent',
+                        backgroundColor: isActive ? 'rgba(255, 255, 255, 0.12)' : 'transparent',
+                        color: isActive ? themeData.accentColor : 'rgba(255, 255, 255, 0.65)',
+                        fontFamily: 'var(--f-display)',
+                        fontSize: '11.5px',
+                        fontWeight: isActive ? 700 : 500,
+                        cursor: 'pointer',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                        boxShadow: isActive ? `0 0 14px ${themeData.accentColor}35` : 'none',
+                        outline: 'none',
+                      }}
+                    >
+                      <span 
+                        style={{
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          backgroundColor: themeData.accentColor,
+                          boxShadow: isActive ? `0 0 6px ${themeData.accentColor}` : 'none',
+                        }} 
+                      />
+                      <span style={{ textTransform: 'capitalize' }}>
+                        {t === 'dark' ? 'Dark (Default)' : t}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 4 Theme Interactive Cards Grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+              gap: '12px',
+            }}>
+              {(['dark', 'light', 'yellow', 'red'] as ThemeMode[]).map((t) => {
+                const isActive = theme === t;
+                const themeData = THEMES[t];
+                return (
+                  <button
+                    key={t}
+                    type="button"
+                    id={`theme-card-${t}`}
+                    onClick={() => setTheme(t)}
+                    style={{
+                      textAlign: 'left',
+                      padding: '14px',
+                      borderRadius: '12px',
+                      backgroundColor: isActive ? 'rgba(255, 255, 255, 0.07)' : 'rgba(0, 0, 0, 0.35)',
+                      border: isActive ? `1.5px solid ${themeData.accentColor}` : '1px solid rgba(255, 255, 255, 0.08)',
+                      boxShadow: isActive ? `0 0 16px ${themeData.accentColor}25` : 'none',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      position: 'relative',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '10px',
+                    }}
+                  >
+                    {/* Top Row: Swatches & Active Icon */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        {/* Background Swatch */}
+                        <div
+                          title="Base Background"
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            borderRadius: '50%',
+                            backgroundColor: themeData.bgColor,
+                            border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                          }}
+                        />
+                        {/* Accent Swatch */}
+                        <div
+                          title="Accent Optics"
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            borderRadius: '50%',
+                            backgroundColor: themeData.accentColor,
+                            boxShadow: `0 0 8px ${themeData.accentColor}`,
+                          }}
+                        />
+                      </div>
+
+                      {isActive ? (
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          color: themeData.accentColor,
+                          fontSize: '10px',
+                          fontFamily: 'var(--f-mono)',
+                          fontWeight: 700,
+                          backgroundColor: `${themeData.accentColor}18`,
+                          padding: '2px 8px',
+                          borderRadius: '100px',
+                          border: `1px solid ${themeData.accentColor}40`,
+                        }}>
+                          <Check size={11} />
+                          <span>ACTIVE</span>
+                        </div>
+                      ) : (
+                        <div style={{
+                          fontSize: '10px',
+                          fontFamily: 'var(--f-mono)',
+                          color: 'rgba(255, 255, 255, 0.35)',
+                        }}>
+                          {t === 'dark' ? 'DEFAULT' : 'SELECT'}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Theme Details */}
+                    <div>
+                      <div style={{
+                        fontFamily: 'var(--f-display)',
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        color: isActive ? themeData.accentColor : '#FFFFFF',
+                        marginBottom: '3px',
+                      }}>
+                        {themeData.name}
+                      </div>
+                      <div style={{
+                        fontSize: '11px',
+                        color: 'rgba(255, 255, 255, 0.55)',
+                        lineHeight: 1.35,
+                      }}>
+                        {themeData.tagline}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '10px' }}>
+          {/* Deepfake Alert Notifications Toggle */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingTop: '16px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+          }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Bell size={16} color="rgba(255, 255, 255, 0.6)" />
               <div>
@@ -326,25 +476,10 @@ export default function SettingsPage() {
             </div>
             <input
               type="checkbox"
+              id="notifications-checkbox"
               checked={notifications}
               onChange={(e) => setNotifications(e.target.checked)}
-              style={{ width: '18px', height: '18px', accentColor: '#00E5FF', cursor: 'pointer' }}
-            />
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Moon size={16} color="rgba(255, 255, 255, 0.6)" />
-              <div>
-                <div style={{ fontSize: '13.5px', fontWeight: 600, color: '#FFFFFF' }}>Dark Futuristic Theme</div>
-                <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.5)' }}>Optimized OLED dark aesthetics for high-contrast forensic inspection</div>
-              </div>
-            </div>
-            <input
-              type="checkbox"
-              checked={darkTheme}
-              onChange={(e) => setDarkTheme(e.target.checked)}
-              style={{ width: '18px', height: '18px', accentColor: '#00E5FF', cursor: 'pointer' }}
+              style={{ width: '18px', height: '18px', accentColor: 'var(--cyan, #00E5FF)', cursor: 'pointer' }}
             />
           </div>
         </div>

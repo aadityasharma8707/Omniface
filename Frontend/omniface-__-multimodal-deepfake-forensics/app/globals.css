@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-:root {
+:root,
+[data-theme="dark"] {
+  --theme: 'dark';
   --black: #000000;
   --bg-dark: #06080D;
   --bg-darker: #030407;
@@ -13,9 +15,75 @@
   --emerald: #00F5A0;
   --coral: #FF4D4D;
   --muted: rgba(255, 255, 255, 0.75);
-  --label: rgba(255, 255, 255, 0.5);
-  --f-display: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --f-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --label: rgba(255, 255, 255, 0.78);
+  --text-primary: #FFFFFF;
+  --f-display: var(--font-orbitron), 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --f-body: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+[data-theme="light"] {
+  --theme: 'light';
+  --black: #FFFFFF;
+  --bg-dark: #FFFFFF;
+  --bg-darker: #F1F5F9;
+  --bg-card: rgba(255, 255, 255, 0.98);
+  --bg-card-hover: #F8FAFC;
+  --border-cyan: rgba(0, 136, 204, 0.35);
+  --border-glass: rgba(0, 0, 0, 0.12);
+  --cyan: #0088CC;
+  --cyan-glow: rgba(0, 136, 204, 0.35);
+  --emerald: #059669;
+  --coral: #DC2626;
+  --muted: #475569;
+  --label: #1E293B;
+  --text-primary: #000000;
+  --text-secondary: #334155;
+}
+
+[data-theme="yellow"] {
+  --theme: 'yellow';
+  --black: #000000;
+  --bg-dark: #FEF08A;
+  --bg-darker: #FDE047;
+  --bg-card: #FEF9C3;
+  --bg-card-hover: #FEF08A;
+  --border-cyan: #CA8A04;
+  --border-glass: rgba(161, 98, 7, 0.3);
+  --cyan: #CA8A04;
+  --cyan-glow: rgba(234, 179, 8, 0.4);
+  --emerald: #15803D;
+  --coral: #C2410C;
+  --muted: #422006;
+  --label: #1C1917;
+  --text-primary: #000000;
+  --text-secondary: #1C1917;
+}
+
+[data-theme="red"] {
+  --theme: 'red';
+  --black: #000000;
+  --bg-dark: #FECACA;
+  --bg-darker: #FCA5A5;
+  --bg-card: #FEE2E2;
+  --bg-card-hover: #FECACA;
+  --border-cyan: #DC2626;
+  --border-glass: rgba(185, 28, 28, 0.35);
+  --cyan: #DC2626;
+  --cyan-glow: rgba(220, 38, 38, 0.4);
+  --emerald: #059669;
+  --coral: #991B1B;
+  --muted: #450A0A;
+  --label: #1C1917;
+  --text-primary: #000000;
+  --text-secondary: #1C1917;
+}
+
+/* WCAG AA High Contrast Placeholders & Inputs */
+input::placeholder,
+textarea::placeholder,
+::placeholder {
+  color: #94A3B8 !important;
+  opacity: 0.9 !important;
 }
 
 html, body {
@@ -133,57 +201,63 @@ h1, h2, h3, .heading-font {
 .hero-primary-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: #0A0A0A;
-  color: #FFFFFF;
-  border: 1px solid #0A0A0A;
+  background: #00E5FF;
+  color: #06080D;
+  border: 1px solid #00E5FF;
   border-radius: 100px;
-  padding: clamp(7px, 1.1vh, 10px) clamp(16px, 1.8vw, 22px);
+  padding: clamp(8px, 1.2vh, 12px) clamp(18px, 2vw, 24px);
   font-family: var(--f-display);
-  font-size: clamp(10px, 1.15vh, 11px);
+  font-size: clamp(10.5px, 1.2vh, 11.5px);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.55), 0 4px 14px rgba(0, 0, 0, 0.35);
+  min-height: 44px;
   outline: none;
 }
 
 .hero-primary-btn:hover {
-  background: #262626;
-  border-color: #262626;
-  color: #FFFFFF;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  color: #06080D;
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgba(0, 229, 255, 0.85), 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
 .hero-secondary-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: #FFFFFF;
-  color: #0A0A0A;
-  border: 1px solid #0A0A0A;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 100px;
-  padding: clamp(7px, 1.1vh, 10px) clamp(14px, 1.6vw, 18px);
+  padding: clamp(8px, 1.2vh, 12px) clamp(16px, 1.8vw, 22px);
   font-family: var(--f-display);
-  font-size: clamp(10px, 1.15vh, 11px);
+  font-size: clamp(10.5px, 1.2vh, 11.5px);
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  min-height: 44px;
   outline: none;
 }
 
 .hero-secondary-btn:hover {
-  background: #0A0A0A;
-  border-color: #0A0A0A;
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.45);
   color: #FFFFFF;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
 /* Hero Content Grid */
@@ -471,8 +545,8 @@ h1.words-pull-up {
   .hero-secondary-btn {
     justify-content: center;
     width: 100%;
-    padding: 8px 16px;
-    min-height: 40px;
+    padding: 10px 18px;
+    min-height: 44px;
   }
 
   .product-card {
@@ -859,5 +933,551 @@ h1.words-pull-up {
   }
 }
 
+/* Radar & Mobile Menu Keyframes */
+@keyframes radarSweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================================================
+   OMNIFACE MULTI-THEME ENGINE (DARK / LIGHT / YELLOW / RED)
+   ========================================================================= */
+
+/* =========================================================================
+   1. LAB LIGHT (TRUE INVERSE OF DARK CYBERPUNK)
+   - Every background element inverted to clean crisp white / light slate
+   - Every text inverted to deep black / dark slate
+   - Accent optics inverted to electric deep cyan
+   ========================================================================= */
+[data-theme="light"] html,
+[data-theme="light"] body {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+}
+
+[data-theme="light"] #dashboard-main-area,
+[data-theme="light"] main {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+}
+
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6,
+[data-theme="light"] .heading-font {
+  color: #000000 !important;
+}
+
+[data-theme="light"] p,
+[data-theme="light"] label,
+[data-theme="light"] td,
+[data-theme="light"] th,
+[data-theme="light"] li,
+[data-theme="light"] strong,
+[data-theme="light"] b {
+  color: #000000 !important;
+}
+
+[data-theme="light"] span:not([style*="backgroundColor"]):not([style*="background-color"]) {
+  color: #000000 !important;
+}
+
+/* Invert inline white text across all components */
+[data-theme="light"] [style*="color: '#FFFFFF'"],
+[data-theme="light"] [style*="color: #FFFFFF"],
+[data-theme="light"] [style*="color: #ffffff"],
+[data-theme="light"] [style*="color: #fff"],
+[data-theme="light"] [style*="color: rgb(255, 255, 255)"],
+[data-theme="light"] [style*="color: '#F0F4F8'"],
+[data-theme="light"] [style*="color: #F0F4F8"] {
+  color: #000000 !important;
+}
+
+[data-theme="light"] [style*="color: 'rgba(255, 255, 255, 0.55)'"],
+[data-theme="light"] [style*="color: 'rgba(255, 255, 255, 0.5)'"],
+[data-theme="light"] [style*="color: 'rgba(255, 255, 255, 0.65)'"],
+[data-theme="light"] [style*="color: 'rgba(255, 255, 255, 0.7)'"],
+[data-theme="light"] [style*="color: 'rgba(255, 255, 255, 0.72)'"],
+[data-theme="light"] [style*="color: rgba(255, 255, 255"] {
+  color: #334155 !important;
+}
+
+/* Landing & Hero Inversion */
+[data-theme="light"] .hero {
+  background: #F8FAFC !important;
+}
+
+[data-theme="light"] .hero-bg {
+  background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #F1F5F9 65%, #E2E8F0 100%) !important;
+}
+
+[data-theme="light"] #dashboard-fluid-bg-container video {
+  opacity: 0.04 !important;
+  filter: invert(1) brightness(1.2) contrast(1.1) !important;
+}
+
+/* Sidebar & Header Inversion */
+[data-theme="light"] .omniface-desktop-sidebar {
+  background-color: #FFFFFF !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="light"] .omniface-desktop-header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] .omniface-mobile-bar,
+[data-theme="light"] #mobile-top-bar {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme="light"] #mobile-drawer-panel {
+  background-color: #FFFFFF !important;
+  border-right: 1px solid rgba(0, 136, 204, 0.25) !important;
+  color: #000000 !important;
+}
+
+/* Invert All Dark Cards, Containers and Dropzones to Crisp Light Acrylic */
+[data-theme="light"] [style*="backgroundColor: 'rgba(13, 17, 26"],
+[data-theme="light"] [style*="background-color: rgba(13, 17, 26"],
+[data-theme="light"] [style*="backgroundColor: 'rgba(10, 14, 23"],
+[data-theme="light"] [style*="background-color: rgba(10, 14, 23"],
+[data-theme="light"] [style*="backgroundColor: '#06080D'"],
+[data-theme="light"] [style*="background-color: #06080D"],
+[data-theme="light"] [style*="backgroundColor: 'rgba(0, 0, 0"],
+[data-theme="light"] [style*="background-color: rgba(0, 0, 0"],
+[data-theme="light"] .product-card,
+[data-theme="light"] .omniface-card {
+  background-color: #FFFFFF !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] #media-dropzone {
+  background-color: #F8FAFC !important;
+  border-color: rgba(0, 136, 204, 0.35) !important;
+}
+
+/* Invert Inputs & Textareas */
+[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background-color: #F8FAFC !important;
+  color: #000000 !important;
+  border-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #64748B !important;
+  opacity: 0.9 !important;
+}
+
+/* Buttons in Lab Light */
+[data-theme="light"] .hero-primary-btn {
+  background: #0088CC !important;
+  color: #FFFFFF !important;
+  border-color: #0088CC !important;
+  box-shadow: 0 0 20px rgba(0, 136, 204, 0.35), 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-theme="light"] .hero-secondary-btn {
+  background: #F1F5F9 !important;
+  color: #000000 !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Icons in Lab Light */
+[data-theme="light"] svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+[data-theme="light"] svg[color="#00E5FF"],
+[data-theme="light"] svg[stroke="#00E5FF"] {
+  color: #0088CC !important;
+  stroke: #0088CC !important;
+}
+
+[data-theme="light"] [style*="color: '#00E5FF'"],
+[data-theme="light"] [style*="color: #00E5FF"] {
+  color: #0088CC !important;
+}
+
+
+/* =========================================================================
+   2. CYBER YELLOW THEME
+   - Buttons, background and elements in harmonious shades of yellow
+   - All text & icons in bold pure black
+   ========================================================================= */
+[data-theme="yellow"] html,
+[data-theme="yellow"] body {
+  background-color: #FEF08A !important;
+  color: #000000 !important;
+}
+
+[data-theme="yellow"] #dashboard-main-area,
+[data-theme="yellow"] main {
+  background-color: #FEF08A !important;
+  color: #000000 !important;
+}
+
+/* Pure Black Text Across All Elements */
+[data-theme="yellow"] h1,
+[data-theme="yellow"] h2,
+[data-theme="yellow"] h3,
+[data-theme="yellow"] h4,
+[data-theme="yellow"] h5,
+[data-theme="yellow"] h6,
+[data-theme="yellow"] .heading-font,
+[data-theme="yellow"] p,
+[data-theme="yellow"] span,
+[data-theme="yellow"] label,
+[data-theme="yellow"] td,
+[data-theme="yellow"] th,
+[data-theme="yellow"] li,
+[data-theme="yellow"] strong,
+[data-theme="yellow"] b,
+[data-theme="yellow"] small,
+[data-theme="yellow"] a,
+[data-theme="yellow"] div {
+  color: #000000 !important;
+}
+
+/* Force All Inline Text Colors to Black */
+[data-theme="yellow"] [style*="color: '#FFFFFF'"],
+[data-theme="yellow"] [style*="color: #FFFFFF"],
+[data-theme="yellow"] [style*="color: #ffffff"],
+[data-theme="yellow"] [style*="color: #fff"],
+[data-theme="yellow"] [style*="color: rgb(255, 255, 255)"],
+[data-theme="yellow"] [style*="color: rgba(255, 255, 255"],
+[data-theme="yellow"] [style*="color: '#00E5FF'"],
+[data-theme="yellow"] [style*="color: #00E5FF"],
+[data-theme="yellow"] [style*="color: '#F0F4F8'"],
+[data-theme="yellow"] [style*="color: #F0F4F8"] {
+  color: #000000 !important;
+}
+
+/* Landing & Hero in Shades of Yellow */
+[data-theme="yellow"] .hero {
+  background: #FDE047 !important;
+}
+
+[data-theme="yellow"] .hero-bg {
+  background: radial-gradient(circle at 50% 50%, #FEF9C3 0%, #FEF08A 65%, #FDE047 100%) !important;
+}
+
+[data-theme="yellow"] #dashboard-fluid-bg-container video {
+  opacity: 0.04 !important;
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(5deg) !important;
+}
+
+/* Sidebar & Header in Shades of Yellow */
+[data-theme="yellow"] .omniface-desktop-sidebar {
+  background-color: #FDE047 !important;
+  border-right: 2px solid #CA8A04 !important;
+  color: #000000 !important;
+  box-shadow: 4px 0 20px rgba(202, 138, 4, 0.2) !important;
+}
+
+[data-theme="yellow"] .omniface-desktop-header {
+  background-color: #FDE047 !important;
+  border-bottom: 2px solid #CA8A04 !important;
+  color: #000000 !important;
+}
+
+[data-theme="yellow"] .omniface-mobile-bar,
+[data-theme="yellow"] #mobile-top-bar {
+  background-color: #FDE047 !important;
+  border-bottom: 2px solid #CA8A04 !important;
+  color: #000000 !important;
+}
+
+[data-theme="yellow"] #mobile-drawer-panel {
+  background-color: #FEF9C3 !important;
+  border-right: 2px solid #CA8A04 !important;
+  color: #000000 !important;
+}
+
+/* Cards & Containers in Shades of Yellow */
+[data-theme="yellow"] [style*="backgroundColor: 'rgba(13, 17, 26"],
+[data-theme="yellow"] [style*="background-color: rgba(13, 17, 26"],
+[data-theme="yellow"] [style*="backgroundColor: 'rgba(10, 14, 23"],
+[data-theme="yellow"] [style*="background-color: rgba(10, 14, 23"],
+[data-theme="yellow"] [style*="backgroundColor: '#06080D'"],
+[data-theme="yellow"] [style*="background-color: #06080D"],
+[data-theme="yellow"] [style*="backgroundColor: 'rgba(0, 0, 0"],
+[data-theme="yellow"] [style*="background-color: rgba(0, 0, 0"],
+[data-theme="yellow"] .product-card,
+[data-theme="yellow"] .omniface-card {
+  background-color: #FEF9C3 !important;
+  border: 1.5px solid #CA8A04 !important;
+  box-shadow: 0 4px 20px rgba(202, 138, 4, 0.15) !important;
+  color: #000000 !important;
+}
+
+[data-theme="yellow"] #media-dropzone {
+  background-color: #FEF9C3 !important;
+  border: 2px dashed #CA8A04 !important;
+  color: #000000 !important;
+}
+
+/* Buttons in Shades of Yellow with Pure Black Text */
+[data-theme="yellow"] .hero-primary-btn,
+[data-theme="yellow"] button[type="submit"] {
+  background: #FACC15 !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18) !important;
+}
+
+[data-theme="yellow"] .hero-primary-btn:hover,
+[data-theme="yellow"] button[type="submit"]:hover {
+  background: #EAB308 !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-2px);
+}
+
+[data-theme="yellow"] .hero-secondary-btn,
+[data-theme="yellow"] button:not(.hero-primary-btn):not([type="submit"]) {
+  background-color: #FDE047 !important;
+  color: #000000 !important;
+  border-color: #CA8A04 !important;
+}
+
+/* Inputs & Textareas in Yellow Tones with Pure Black Text */
+[data-theme="yellow"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="yellow"] textarea,
+[data-theme="yellow"] select {
+  background-color: #FEFCE8 !important;
+  color: #000000 !important;
+  border: 1.5px solid #CA8A04 !important;
+}
+
+[data-theme="yellow"] input::placeholder,
+[data-theme="yellow"] textarea::placeholder {
+  color: #713F12 !important;
+  opacity: 0.8 !important;
+}
+
+/* Table rows, History items, Chips & Badges */
+[data-theme="yellow"] table,
+[data-theme="yellow"] tr,
+[data-theme="yellow"] td,
+[data-theme="yellow"] th {
+  border-color: #CA8A04 !important;
+  color: #000000 !important;
+}
+
+/* Icons in Pure Black */
+[data-theme="yellow"] svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+
+/* =========================================================================
+   3. TACTICAL RED THEME
+   - Components, buttons, backgrounds in harmonious shades of red
+   - All text & icons in bold pure black
+   ========================================================================= */
+[data-theme="red"] html,
+[data-theme="red"] body {
+  background-color: #FECACA !important;
+  color: #000000 !important;
+}
+
+[data-theme="red"] #dashboard-main-area,
+[data-theme="red"] main {
+  background-color: #FECACA !important;
+  color: #000000 !important;
+}
+
+/* Pure Black Text Across All Elements */
+[data-theme="red"] h1,
+[data-theme="red"] h2,
+[data-theme="red"] h3,
+[data-theme="red"] h4,
+[data-theme="red"] h5,
+[data-theme="red"] h6,
+[data-theme="red"] .heading-font,
+[data-theme="red"] p,
+[data-theme="red"] span,
+[data-theme="red"] label,
+[data-theme="red"] td,
+[data-theme="red"] th,
+[data-theme="red"] li,
+[data-theme="red"] strong,
+[data-theme="red"] b,
+[data-theme="red"] small,
+[data-theme="red"] a,
+[data-theme="red"] div {
+  color: #000000 !important;
+}
+
+/* Force All Inline Text Colors to Black */
+[data-theme="red"] [style*="color: '#FFFFFF'"],
+[data-theme="red"] [style*="color: #FFFFFF"],
+[data-theme="red"] [style*="color: #ffffff"],
+[data-theme="red"] [style*="color: #fff"],
+[data-theme="red"] [style*="color: rgb(255, 255, 255)"],
+[data-theme="red"] [style*="color: rgba(255, 255, 255"],
+[data-theme="red"] [style*="color: '#00E5FF'"],
+[data-theme="red"] [style*="color: #00E5FF"],
+[data-theme="red"] [style*="color: '#F0F4F8'"],
+[data-theme="red"] [style*="color: #F0F4F8"] {
+  color: #000000 !important;
+}
+
+/* Landing & Hero in Shades of Red */
+[data-theme="red"] .hero {
+  background: #FCA5A5 !important;
+}
+
+[data-theme="red"] .hero-bg {
+  background: radial-gradient(circle at 50% 50%, #FEE2E2 0%, #FECACA 65%, #FCA5A5 100%) !important;
+}
+
+[data-theme="red"] #dashboard-fluid-bg-container video {
+  opacity: 0.04 !important;
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(300deg) !important;
+}
+
+/* Sidebar & Header in Shades of Red */
+[data-theme="red"] .omniface-desktop-sidebar {
+  background-color: #FCA5A5 !important;
+  border-right: 2px solid #DC2626 !important;
+  color: #000000 !important;
+  box-shadow: 4px 0 20px rgba(220, 38, 38, 0.2) !important;
+}
+
+[data-theme="red"] .omniface-desktop-header {
+  background-color: #FCA5A5 !important;
+  border-bottom: 2px solid #DC2626 !important;
+  color: #000000 !important;
+}
+
+[data-theme="red"] .omniface-mobile-bar,
+[data-theme="red"] #mobile-top-bar {
+  background-color: #FCA5A5 !important;
+  border-bottom: 2px solid #DC2626 !important;
+  color: #000000 !important;
+}
+
+[data-theme="red"] #mobile-drawer-panel {
+  background-color: #FEE2E2 !important;
+  border-right: 2px solid #DC2626 !important;
+  color: #000000 !important;
+}
+
+/* Cards & Containers in Shades of Red */
+[data-theme="red"] [style*="backgroundColor: 'rgba(13, 17, 26"],
+[data-theme="red"] [style*="background-color: rgba(13, 17, 26"],
+[data-theme="red"] [style*="backgroundColor: 'rgba(10, 14, 23"],
+[data-theme="red"] [style*="background-color: rgba(10, 14, 23"],
+[data-theme="red"] [style*="backgroundColor: '#06080D'"],
+[data-theme="red"] [style*="background-color: #06080D"],
+[data-theme="red"] [style*="backgroundColor: 'rgba(0, 0, 0"],
+[data-theme="red"] [style*="background-color: rgba(0, 0, 0"],
+[data-theme="red"] .product-card,
+[data-theme="red"] .omniface-card {
+  background-color: #FEE2E2 !important;
+  border: 1.5px solid #DC2626 !important;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.15) !important;
+  color: #000000 !important;
+}
+
+[data-theme="red"] #media-dropzone {
+  background-color: #FEE2E2 !important;
+  border: 2px dashed #DC2626 !important;
+  color: #000000 !important;
+}
+
+/* Buttons in Shades of Red with Pure Black Text */
+[data-theme="red"] .hero-primary-btn,
+[data-theme="red"] button[type="submit"] {
+  background: #EF4444 !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18) !important;
+}
+
+[data-theme="red"] .hero-primary-btn:hover,
+[data-theme="red"] button[type="submit"]:hover {
+  background: #DC2626 !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  transform: translateY(-2px);
+}
+
+[data-theme="red"] .hero-secondary-btn,
+[data-theme="red"] button:not(.hero-primary-btn):not([type="submit"]) {
+  background-color: #FCA5A5 !important;
+  color: #000000 !important;
+  border-color: #DC2626 !important;
+}
+
+/* Inputs & Textareas in Red Tones with Pure Black Text */
+[data-theme="red"] input:not([type="checkbox"]):not([type="radio"]),
+[data-theme="red"] textarea,
+[data-theme="red"] select {
+  background-color: #FFF1F2 !important;
+  color: #000000 !important;
+  border: 1.5px solid #DC2626 !important;
+}
+
+[data-theme="red"] input::placeholder,
+[data-theme="red"] textarea::placeholder {
+  color: #881337 !important;
+  opacity: 0.8 !important;
+}
+
+/* Table rows, History items, Chips & Badges */
+[data-theme="red"] table,
+[data-theme="red"] tr,
+[data-theme="red"] td,
+[data-theme="red"] th {
+  border-color: #DC2626 !important;
+  color: #000000 !important;
+}
+
+/* Icons in Pure Black */
+[data-theme="red"] svg {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
 
 

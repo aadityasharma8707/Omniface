@@ -109,7 +109,7 @@ export default function ProblemSection() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="none"
           className="section-problem-video"
           id="problem-bg-video"
           src="/assets/section2-bg.mp4"
@@ -229,7 +229,7 @@ export default function ProblemSection() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                <span style={{ color: 'rgba(255, 255, 255, 0.6)', textTransform: 'uppercase', fontFamily: 'var(--f-display)' }}>
+                <span style={{ color: '#94A3B8', textTransform: 'uppercase', fontFamily: 'var(--f-display)', fontWeight: 600 }}>
                   Threat Vector
                 </span>
                 <span style={{ fontWeight: 600, color: '#FFFFFF' }}>Visual Manipulation</span>
@@ -318,7 +318,7 @@ export default function ProblemSection() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                <span style={{ color: 'rgba(255, 255, 255, 0.6)', textTransform: 'uppercase', fontFamily: 'var(--f-display)' }}>
+                <span style={{ color: '#94A3B8', textTransform: 'uppercase', fontFamily: 'var(--f-display)', fontWeight: 600 }}>
                   Threat Vector
                 </span>
                 <span style={{ fontWeight: 600, color: '#FFFFFF' }}>Synthetic Voice Cloning</span>
@@ -407,7 +407,7 @@ export default function ProblemSection() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px' }}>
-                <span style={{ color: 'rgba(255, 255, 255, 0.6)', textTransform: 'uppercase', fontFamily: 'var(--f-display)' }}>
+                <span style={{ color: '#94A3B8', textTransform: 'uppercase', fontFamily: 'var(--f-display)', fontWeight: 600 }}>
                   Societal Impact
                 </span>
                 <span style={{ fontWeight: 600, color: '#FF5252' }}>Scams &amp; Misinformation</span>

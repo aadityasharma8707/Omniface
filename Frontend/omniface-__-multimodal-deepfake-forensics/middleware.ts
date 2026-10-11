@@ -5,6 +5,25 @@ const AUTH_ROUTES = ['/login', '/register'];
 const SESSION_COOKIE = 'omniface_session';
 
 export function middleware(request: NextRequest): NextResponse {
+  // 1. Force HTTPS in production environment (behind reverse proxies / load balancers)
+  const proto = request.headers.get('x-forwarded-proto');
+  const host = request.headers.get('host') || request.nextUrl.host;
+  const isProduction = process.env.NODE_ENV === 'production';
+  const isLocalhost =
+    request.nextUrl.hostname === 'localhost' ||
+    request.nextUrl.hostname === '127.0.0.1' ||
+    request.nextUrl.hostname.endsWith('.local');
+
+  if (isProduction && !isLocalhost && proto === 'http') {
+    const httpsUrl = request.nextUrl.clone();
+    httpsUrl.protocol = 'https:';
+    if (host) {
+      httpsUrl.host = host;
+    }
+    return NextResponse.redirect(httpsUrl, 301);
+  }
+
+  // 2. Auth routing protection
   const { pathname } = request.nextUrl;
   const sessionCookie = request.cookies.get(SESSION_COOKIE)?.value;
   const isAuthenticated = !!sessionCookie;
@@ -33,8 +52,13 @@ export function middleware(request: NextRequest): NextResponse {
 
 export const config = {
   matcher: [
-    '/dashboard/:path*',
-    '/login',
-    '/register',
+    /*
+     * Match all request paths except for:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, icon.svg, apple-icon.png, manifest.webmanifest
+     * - media files
+     */
+    '/((?!_next/static|_next/image|favicon.ico|icon.svg|apple-icon.png|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|webm)$).*)',
   ],
 };

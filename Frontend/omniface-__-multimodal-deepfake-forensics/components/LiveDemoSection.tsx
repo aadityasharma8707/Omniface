@@ -20,12 +20,14 @@ import {
   Cpu,
   Scan,
   Zap,
-  Lock
+  Lock,
+  AlertCircle
 } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { analysisService } from '@/lib/api/analysis';
 import { historyService } from '@/lib/api/history';
+import { validateMediaFile } from '@/lib/validations/media';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -211,6 +213,16 @@ export default function LiveDemoSection() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Reset input so re-selecting same file triggers change
+    e.target.value = '';
+
+    // Client-side file pre-validation (MIME types, max 100MB limit)
+    const validation = validateMediaFile(file, selectedModality);
+    if (!validation.isValid) {
+      setUploadError(validation.error || 'Invalid media file selected.');
+      return;
+    }
+
     setIsAnalyzing(true);
     setUploadError(null);
 
@@ -377,6 +389,26 @@ export default function LiveDemoSection() {
               <span>{copiedHash ? 'Hash Copied' : 'Audit SHA-256'}</span>
             </button>
           </div>
+
+          {uploadError && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginTop: '14px',
+                padding: '10px 12px',
+                borderRadius: '8px',
+                backgroundColor: 'rgba(239, 68, 68, 0.12)',
+                border: '1px solid rgba(239, 68, 68, 0.35)',
+                color: '#F87171',
+                fontSize: '12px',
+              }}
+            >
+              <AlertCircle size={15} style={{ flexShrink: 0 }} />
+              <span>{uploadError}</span>
+            </div>
+          )}
         </div>
       </div>
 

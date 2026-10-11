@@ -27,7 +27,9 @@ import {
 import { analysisService, AnalysisResult } from '@/lib/api/analysis';
 import { historyService } from '@/lib/api/history';
 import { reportService } from '@/lib/api/reports';
+import { validateMediaFile, MAX_UPLOAD_MB } from '@/lib/validations/media';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type MediaType = 'video' | 'image' | 'audio';
 
@@ -35,16 +37,16 @@ const MEDIA_CONFIGS = {
   video: {
     label: 'VIDEO',
     icon: Video,
-    accept: 'video/mp4,video/quicktime,video/webm,video/x-matroska',
-    extensions: 'MP4, MOV, WEBM, MKV',
-    maxSizeMB: 150,
+    accept: 'video/mp4,video/quicktime,video/webm,video/x-matroska,video/avi',
+    extensions: 'MP4, MOV, WEBM, MKV, AVI',
+    maxSizeMB: MAX_UPLOAD_MB,
     hint: 'Face-swaps, lip-sync, expression reenactment, GAN artefacts',
   },
   image: {
     label: 'IMAGE',
     icon: ImageIcon,
-    accept: 'image/jpeg,image/png,image/webp,image/tiff',
-    extensions: 'JPG, PNG, WEBP, TIFF',
+    accept: 'image/jpeg,image/png,image/webp,image/tiff,image/bmp',
+    extensions: 'JPG, PNG, WEBP, TIFF, BMP',
     maxSizeMB: 50,
     hint: 'Diffusion synthesis, Midjourney/DALL-E artifacts, face edits',
   },
@@ -102,47 +104,14 @@ export default function DashboardAnalyzePage() {
     setErrorMessage(null);
   };
 
-  // Validate and assign file
+  // Pre-validate and assign file with visual feedback
   const handleFileSelection = (file: File) => {
     setErrorMessage(null);
     setAnalysisResult(null);
 
-    const cleanName = file.name.trim();
-    const config = MEDIA_CONFIGS[activeType];
-    const maxSizeBytes = config.maxSizeMB * 1024 * 1024;
-
-    // Type validation check based on the user's currently active tab
-    const isExplicitAudio =
-      /\.(mp3|wav|wave|ogg|flac|m4a|aac|opus|weba|wma|aiff?|caf|amr|mpga|m4r)$/i.test(cleanName) ||
-      /\.(m4a|mp3|wav|aac|flac|ogg)\./i.test(cleanName) ||
-      file.type.startsWith('audio/') ||
-      file.type === 'audio/x-m4a' ||
-      file.type === 'audio/m4a' ||
-      (activeType === 'audio' && (file.type === 'video/mp4' || /\.mp4$/i.test(cleanName)));
-
-    const isExplicitVideo =
-      (/\.(mp4|mov|webm|mkv|avi|m4v|3gp|flv|wmv|ts)$/i.test(cleanName) || file.type.startsWith('video/')) &&
-      !/\.(m4a|mp3|wav|aac|flac|ogg)\./i.test(cleanName);
-
-    const isExplicitImage =
-      /\.(jpe?g|png|webp|tiff?|bmp|svg|heic|avif|gif)$/i.test(cleanName) ||
-      file.type.startsWith('image/');
-
-    if (activeType === 'video' && !isExplicitVideo) {
-      setErrorMessage(`Invalid file format. Please upload a valid Video file (${config.extensions}).`);
-      return;
-    }
-    if (activeType === 'image' && !isExplicitImage) {
-      setErrorMessage(`Invalid file format. Please upload a valid Image file (${config.extensions}).`);
-      return;
-    }
-    if (activeType === 'audio' && !isExplicitAudio) {
-      setErrorMessage(`Invalid file format. Please upload a valid Audio file (${config.extensions}).`);
-      return;
-    }
-
-    if (file.size > maxSizeBytes) {
-      setErrorMessage(`File exceeds maximum size of ${config.maxSizeMB}MB.`);
+    const validation = validateMediaFile(file, activeType);
+    if (!validation.isValid) {
+      setErrorMessage(validation.error || 'Invalid file format or size limit exceeded.');
       return;
     }
 
@@ -565,9 +534,13 @@ export default function DashboardAnalyzePage() {
                 )}
 
                 {activeType === 'image' && previewUrl && (
-                  <img
+                  <Image
                     src={previewUrl}
                     alt="Target preview"
+                    width={800}
+                    height={440}
+                    unoptimized
+                    priority
                     style={{
                       maxHeight: '440px',
                       maxWidth: '100%',
@@ -836,26 +809,26 @@ export default function DashboardAnalyzePage() {
               padding: '16px',
             }}>
               <div>
-                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: 'rgba(255, 255, 255, 0.45)' }}>FILE NAME</div>
+                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: '#94A3B8', letterSpacing: '0.05em' }}>FILE NAME</div>
                 <div style={{ fontFamily: 'var(--f-sans)', fontSize: '13px', fontWeight: 600, color: '#FFFFFF', marginTop: '2px', wordBreak: 'break-all' }}>
                   {analysisResult.fileName}
                 </div>
               </div>
               <div>
-                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: 'rgba(255, 255, 255, 0.45)' }}>MEDIA TYPE</div>
+                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: '#94A3B8', letterSpacing: '0.05em' }}>MEDIA TYPE</div>
                 <div style={{ fontFamily: 'var(--f-mono)', fontSize: '12px', fontWeight: 600, color: '#00E5FF', marginTop: '2px', textTransform: 'uppercase' }}>
                   {analysisResult.mediaType}
                 </div>
               </div>
               <div>
-                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: 'rgba(255, 255, 255, 0.45)' }}>TIMESTAMP</div>
+                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: '#94A3B8', letterSpacing: '0.05em' }}>TIMESTAMP</div>
                 <div style={{ fontFamily: 'var(--f-mono)', fontSize: '12px', color: '#FFFFFF', marginTop: '2px' }}>
                   {new Date(analysisResult.timestamp).toLocaleString()}
                 </div>
               </div>
               <div>
-                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: 'rgba(255, 255, 255, 0.45)' }}>SHA-256 HASH</div>
-                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'rgba(255, 255, 255, 0.65)', marginTop: '2px' }}>
+                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', color: '#94A3B8', letterSpacing: '0.05em' }}>SHA-256 HASH</div>
+                <div style={{ fontFamily: 'var(--f-mono)', fontSize: '11px', color: '#CBD5E1', marginTop: '2px' }}>
                   {analysisResult.sha256 ? `${analysisResult.sha256.slice(0, 12)}...` : 'Not available'}
                 </div>
               </div>
