@@ -64,12 +64,16 @@ export const metadata: Metadata = {
     images: ['/twitter-image'],
     creator: '@OmniFaceAI',
   },
+  verification: {
+    google: 'tPobSXVnj6Yf6Zq3qWdW1e_4esx_n-NFIKhDTzT8_Ew',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${orbitron.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="tPobSXVnj6Yf6Zq3qWdW1e_4esx_n-NFIKhDTzT8_Ew" />
         <link rel="preload" as="image" href="/hero-base.webp" type="image/webp" />
         <script
           dangerouslySetInnerHTML={{
