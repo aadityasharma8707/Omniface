@@ -9,6 +9,8 @@ const orbitron = Orbitron({
   weight: ['500', '600', '700', '800', '900'],
   variable: '--font-orbitron',
   display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
+  adjustFontFallback: false,
 });
 
 const inter = Inter({
@@ -16,6 +18,8 @@ const inter = Inter({
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-inter',
   display: 'swap',
+  fallback: ['system-ui', 'sans-serif'],
+  adjustFontFallback: false,
 });
 
 const APP_URL =

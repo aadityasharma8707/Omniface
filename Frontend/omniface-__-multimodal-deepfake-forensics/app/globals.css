@@ -309,7 +309,7 @@ h1.words-pull-up {
   line-height: 1.04;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #0A0A0A;
+  color: #FFFFFF;
   font-weight: 700;
   margin: 0;
 }
@@ -324,7 +324,7 @@ h1.words-pull-up {
   font-size: clamp(11.5px, 1.25vh, 13px);
   font-weight: 500;
   line-height: 1.45;
-  color: #1A1A1A;
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 0;
 }
 

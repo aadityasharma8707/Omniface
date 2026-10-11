@@ -7,7 +7,7 @@ export const globalScrollState = {
   targetScrollY: 0,
   currentScrollY: 0,
   globalProgress: 0,
-  globalOpacity: 0.35,
+  globalOpacity: 0.85,
   horizontalProgress: 0,
 };
 

@@ -1,21 +1,23 @@
 import type { NextConfig } from 'next';
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 // Content Security Policy (CSP) directive string
 // Restricts scripts, styles, media, and connections strictly to verified trusted origins
 const CSP_POLICY = `
   default-src 'self';
-  script-src 'self' https://apis.google.com https://www.googletagmanager.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.googletagmanager.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com data:;
   img-src 'self' data: blob: https://res.cloudinary.com https://picsum.photos https://*.googleusercontent.com;
   media-src 'self' data: blob: https://res.cloudinary.com;
-  connect-src 'self' https://omniface-x6te.onrender.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.googleapis.com https://api.github.com;
+  connect-src 'self' https://omniface-x6te.onrender.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.googleapis.com https://api.github.com ws: wss:;
   frame-src 'self' https://*.firebaseapp.com;
   worker-src 'self' blob:;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
-  upgrade-insecure-requests;
+  ${isDev ? '' : 'upgrade-insecure-requests;'}
 `
   .replace(/\s{2,}/g, ' ')
   .trim();
@@ -56,7 +58,7 @@ const SECURITY_HEADERS = [
   },
   {
     key: 'Cross-Origin-Opener-Policy',
-    value: 'same-origin',
+    value: 'same-origin-allow-popups',
   },
   {
     key: 'Cross-Origin-Resource-Policy',
