@@ -79,11 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="google-site-verification" content="tPobSXVnj6Yf6Zq3qWdW1e_4esx_n-NFIKhDTzT8_Ew" />
         <link rel="preload" as="image" href="/hero-base.webp" type="image/webp" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('omniface_theme')||'dark';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
-          }}
-        />
+        <script src="/theme-init.js" />
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
